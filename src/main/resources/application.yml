@@ -5,10 +5,13 @@ spring:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://${DB_HOST_NAME}:${DB_PORT}/${DB_BANE}
-    username: ${DB_APP_USER}
-    password: ${DB_APP_USER_PWD}
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driverClassName: org.postgresql.Driver
   sql:
     init:
       platform: postgres
+
+server:
+  port: 8487

@@ -1,0 +1,5 @@
+CREATE USER devuser WITH PASSWORD 'devuser123';
+
+CREATE DATABASE book_api  OWNER devuser;
+
+GRANT ALL PRIVILEGES ON DATABASE book_api TO devuser;
