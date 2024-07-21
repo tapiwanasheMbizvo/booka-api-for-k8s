@@ -7,6 +7,8 @@ pipeline {
         DOCKER_HUB_USERNAME = 'tapiwanashembizvo'
         DOCKER_HUB_PASSWORD = credentials('dockerHubCreds')
         AWS_EC2_INSTANCE_ID = 'i-043dca8522150d5ca'
+        ECR_REPOSITORY_URI= '211125663777.dkr.ecr.af-south-1.amazonaws.com/bookapi-devops'
+        AWS_ECR_CREDS
     }
 
     stages {
@@ -28,14 +30,13 @@ pipeline {
             }
         }
 
-        stage('Push to Docker Hub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerHubCreds', usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD')]) {
-                    sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
-                    sh "docker push ${DOCKER_IMAGE_NAME}"
-                }
-            }
-        }
+/* stage('Push to AWS ECR') {
+    steps {
+       docker.withRegistry(ECR_REPOSITORY_URI, "ecr:af-south-1:credential-id") {
+         docker.image(DOCKER_IMAGE_NAME).push()
+       }
+    }
+} */
 
         stage('Deploy to AWS EC2') {
             steps {
