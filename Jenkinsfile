@@ -3,12 +3,6 @@ pipeline {
 
     environment {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/booka-api-for-k8s.git'
-        DOCKER_IMAGE_NAME = 'book-api-docker'
-        DOCKER_HUB_USERNAME = 'tapiwanashembizvo'
-        DOCKER_HUB_PASSWORD = credentials('dockerHubCreds')
-        AWS_EC2_INSTANCE_ID = 'i-043dca8522150d5ca'
-        ECR_REPOSITORY_URI= '211125663777.dkr.ecr.af-south-1.amazonaws.com/bookapi-devops'
-
     }
 
     stages {
@@ -24,24 +18,10 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t ${DOCKER_IMAGE_NAME} ."
-            }
-        }
-
-/* stage('Push to AWS ECR') {
-    steps {
-       docker.withRegistry(ECR_REPOSITORY_URI, "ecr:af-south-1:credential-id") {
-         docker.image(DOCKER_IMAGE_NAME).push()
-       }
-    }
-} */
-
         stage('Deploy to AWS EC2') {
             steps {
                sh '''
-                  docker run -d ${DOCKER_IMAGE_NAME}
+                  sh 'docker compose -f docker-compose-book-api.yml up -d'
                   '''
             }
         }
