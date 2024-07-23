@@ -22,7 +22,7 @@ pipeline {
 
         stage('Docker image build'){
             steps{
-            sh "docker build -t tapiwanashembizvo/book-api:${BUILD_VERSION}"
+            sh "docker build -t tapiwanashembizvo/book-api:${BUILD_VERSION} ."
             }
         }
         stage('Login'){
