@@ -39,18 +39,10 @@ pipeline {
 } */
 
         stage('Deploy to AWS EC2') {
-
-
             steps {
-            withAWS(credentials: 'AKIATCKAR7AQYEKTEXET'){
-             sh '''
-                              aws ec2 start-instances --instance-ids ${AWS_EC2_INSTANCE_ID}
-                              aws ec2 wait instance-running --instance-ids ${AWS_EC2_INSTANCE_ID}
-                              aws ec2 describe-instances --instance-ids ${AWS_EC2_INSTANCE_ID}
-                              docker run -d ${DOCKER_IMAGE_NAME}
-                              '''
-            }
-
+               sh '''
+                  docker run -d ${DOCKER_IMAGE_NAME}
+                  '''
             }
         }
     }
