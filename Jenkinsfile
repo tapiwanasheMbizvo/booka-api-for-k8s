@@ -21,7 +21,7 @@ pipeline {
         stage('Deploy to AWS EC2') {
             steps {
                sh '''
-                  sh 'docker compose -f docker-compose-book-api.yml up -d'
+                  sh 'docker compose -f book-api.yml up -d'
                   '''
             }
         }
