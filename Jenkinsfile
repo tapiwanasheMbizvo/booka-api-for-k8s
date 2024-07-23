@@ -8,7 +8,7 @@ pipeline {
         DOCKER_HUB_PASSWORD = credentials('dockerHubCreds')
         AWS_EC2_INSTANCE_ID = 'i-043dca8522150d5ca'
         ECR_REPOSITORY_URI= '211125663777.dkr.ecr.af-south-1.amazonaws.com/bookapi-devops'
-        AWS_ECR_CREDS
+
     }
 
     stages {
