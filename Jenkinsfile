@@ -5,8 +5,6 @@ pipeline {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/booka-api-for-k8s.git'
         DOCKER_HUB_CREDENTIALS = 'dockerhubcreds'
         BUILD_VERSION = "${env.BUILD_NUMBER}"
-        DOCKER_HUB_REGISTRY = 'https://hub.docker.com/repository/docker/tapiwanashembizvo/book-api-backend'
-        DOCKER_IMAGE = ''
         DOCKER_USER_NAME = 'tapiwanashembizvo'
         DOCKER_REPO_NAME = 'book-api-backend'
 
@@ -43,8 +41,6 @@ pipeline {
                  }
              }
          }
-
-
         stage('Deploy') {
             steps {
                sh 'docker compose -f book-api.yml up -d'
