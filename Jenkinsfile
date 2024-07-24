@@ -29,9 +29,21 @@ pipeline {
 
             script{
                 DOCKER_IMAGE = docker.build DOCKER_REPO_NAME +":$BUILD_VERSION"
-                DOCKER_IMAGE.push()
+               // DOCKER_IMAGE.push()
             }
           }
+        }
+
+        steps ('Push to Docker Hub'){
+        steps{
+        script{
+            docker.withRegistry('', DOCKER_HUB_CREDENTIALS){
+
+            DOCKER_IMAGE.push()
+            }
+        }
+        }
+
         }
 
         stage('Deploy') {
