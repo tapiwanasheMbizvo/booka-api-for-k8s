@@ -34,12 +34,15 @@ pipeline {
         }
 
 
-        stage('Push'){
-
-        steps{
-            sh "docker push ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION}"
+       stage('Push Docker Image') {
+             steps {
+                 script {
+                     docker.withRegistry('', DOCKER_HUB_CREDENTIALS) {
+                         docker.image("${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${env.BUILD_NUMBER}").push()
+                     }
+                 }
              }
-        }
+         }
 
 
         stage('Deploy') {
