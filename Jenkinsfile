@@ -7,6 +7,7 @@ pipeline {
         BUILD_VERSION = "${env.BUILD_NUMBER}"
         DOCKER_HUB_REGISTRY = 'https://hub.docker.com/repository/docker/tapiwanashembizvo/book-api-backend'
         DOCKER_IMAGE = ''
+        DOCKER_USER_NAME = 'tapiwanashembizvo'
         DOCKER_REPO_NAME = 'book-api-backend'
 
     }
@@ -36,7 +37,7 @@ pipeline {
         stage('Push'){
 
         steps{
-            sh "docker push ${DOCKER_REPO_NAME}:${BUILD_VERSION}"
+            sh "docker push ${DOCKER_USER_NAME}/${DOCKER_REPO_NAME}:${BUILD_VERSION}"
              }
         }
 
