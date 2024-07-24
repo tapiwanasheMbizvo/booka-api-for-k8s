@@ -28,7 +28,7 @@ pipeline {
             steps{
 
 
-            sh "docker build -t ${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
+            sh "docker build -t ${DOCKER_HUB_REGISTRY}:${BUILD_VERSION} ."
             }
         }
 
@@ -36,7 +36,7 @@ pipeline {
         stage('Push'){
 
         steps{
-            sh "docker push ${DOCKER_REPO_NAME}:${BUILD_VERSION}"
+            sh "docker push ${DOCKER_HUB_REGISTRY}:${BUILD_VERSION}"
              }
         }
 
