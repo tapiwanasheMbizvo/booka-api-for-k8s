@@ -3,8 +3,12 @@ pipeline {
 
     environment {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/booka-api-for-k8s.git'
-        DOCKER_HUB_CREDENTIALS = credentials('dockerhubcreds')
+        DOCKER_HUB_CREDENTIALS = 'dockerhubcreds'
         BUILD_VERSION = "${env.BUILD_NUMBER}"
+        DOCKER_HUB_REGISTRY = 'https://hub.docker.com/repository/docker/tapiwanashembizvo/book-api-backend'
+        DOCKER_IMAGE = ''
+        DOCKER_REPO_NAME = 'book-api-backend'
+
     }
 
     stages {
@@ -22,22 +26,13 @@ pipeline {
 
         stage('Docker image build'){
             steps{
-            sh "docker build -t tapiwanashembizvo/book-api:${BUILD_VERSION} ."
+
+            script{
+                DOCKER_IMAGE = docker.build DOCKER_REPO_NAME +":$BUILD_VERSION"
+                DOCKER_IMAGE.push()
             }
+          }
         }
-        stage('Login'){
-            steps{
-            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-
-        stage('Push'){
-
-        steps{
-            sh "docker push tapiwanashembizvo/book-api:${BUILD_VERSION}"
-        }
-        }
-
 
         stage('Deploy') {
             steps {
