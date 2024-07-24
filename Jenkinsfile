@@ -27,24 +27,19 @@ pipeline {
         stage('Docker image build'){
             steps{
 
-            script{
-                DOCKER_IMAGE = docker.build DOCKER_REPO_NAME +":$BUILD_VERSION"
-               // DOCKER_IMAGE.push()
+
+            sh "docker build -t ${DOCKER_REPO_NAME}:${BUILD_VERSION} ."
             }
-          }
         }
 
-        stage ('Push to Docker Hub'){
+
+        stage('Push'){
+
         steps{
-        script{
-            docker.withRegistry('', DOCKER_HUB_CREDENTIALS){
-
-            DOCKER_IMAGE.push()
-            }
-        }
+            sh "docker push ${DOCKER_REPO_NAME}:${BUILD_VERSION}"
+             }
         }
 
-        }
 
         stage('Deploy') {
             steps {
