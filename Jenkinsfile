@@ -9,7 +9,9 @@ pipeline {
         DOCKER_REPO_NAME = 'book-api-backend'
 
     }
-
+tools{
+    maven 'mvn-jenkins'
+}
     stages {
         stage('Checkout Code') {
             steps {
