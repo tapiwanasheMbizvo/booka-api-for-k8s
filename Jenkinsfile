@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         GITHUB_REPOSITORY = 'https://github.com/tapiwanasheMbizvo/booka-api-for-k8s.git'
-        DOCKER_HUB_CREDENTIALS = 'dockerhubcreds'
+        DOCKER_HUB_CREDENTIALS = 'jenkins-docker'
         BUILD_VERSION = "${env.BUILD_NUMBER}"
         DOCKER_USER_NAME = 'tapiwanashembizvo'
         DOCKER_REPO_NAME = 'book-api-backend'
